@@ -1,23 +1,24 @@
+language: generic
 sudo: required
 services:
   - docker
 
 before_install:
-  - docker build -t shanky/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t shanky1665/react-test -f ./client/Dockerfile.dev ./client
 
 script: 
-  - docker run -e CI=true shanky/react-test npm test -- --coverage
+  - docker run -e CI=true shanky1665/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t shanky/multi-client ./client
-  - docker build -t shanky/multi-nginx ./nginx
-  - docker build -t shanky/multi-server ./server
-  - docker build -t shanky/multi-worker ./worker
+  - docker build -t shanky1665/multi-client ./client
+  - docker build -t shanky1665/multi-nginx ./nginx
+  - docker build -t shanky1665/multi-server ./server
+  - docker build -t shanky1665/multi-worker ./worker
   
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push shanky/multi-client
-  - docker push shanky/multi-nginx
-  - docker push shanky/multi-server
-  - docker push shanky/multi-worker
+  - docker push shanky1665/multi-client
+  - docker push shanky1665/multi-nginx
+  - docker push shanky1665/multi-server
+  - docker push shanky1665/multi-worker
