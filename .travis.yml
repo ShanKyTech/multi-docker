@@ -13,3 +13,11 @@ after_success:
   - docker build -t shanky/multi-nginx ./nginx
   - docker build -t shanky/multi-server ./server
   - docker build -t shanky/multi-worker ./worker
+  
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push shanky/multi-client
+  - docker push shanky/multi-nginx
+  - docker push shanky/multi-server
+  - docker push shanky/multi-worker
