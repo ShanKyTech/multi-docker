@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t shanky/react-test -f ./client/Dockerfile.dev ./client
+
+script: 
+  - docker run shanky/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t shanky/multi-client ./client
+  - docker build -t shanky/multi-nginx ./nginx
+  - docker build -t shanky/multi-server ./server
+  - docker build -t shanky/multi-worker ./worker
